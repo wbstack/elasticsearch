@@ -34,6 +34,7 @@ RUN mkdir -p /tmp/bitnami/pkg/cache/ && cd /tmp/bitnami/pkg/cache/ && \
     done ; \
     tar -xzf /opt/bitnami/elasticsearch-oss-7.10.2-linux-x86_64.tar.gz -C /opt/bitnami && \
     mv /opt/bitnami/elasticsearch-7.10.2 /opt/bitnami/elasticsearch && \
+    rm /opt/bitnami/elasticsearch/config/elasticsearch.yml && \
     chown -R 1001:root /opt/bitnami/elasticsearch
 RUN apt-get update && apt-get upgrade -y && \
     apt-get clean && rm -rf /var/lib/apt/lists /var/cache/apt/archives
