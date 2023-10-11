@@ -41,8 +41,8 @@ jobs:
         uses: docker/build-push-action@v3.1.1
         with:
           context: .
-          build-contexts:
-           - 'bitnami-elasticsearch-fork:local=./forked-bitnami-docker'
+          build-contexts: |
+            bitnami-elasticsearch-fork:local=./forked-bitnami-docker
           file: ./Dockerfile
           platforms: linux/amd64
           cache-from: type=local,src=/tmp/.buildx-cache
