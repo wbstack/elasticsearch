@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v3.1.1
         with:
           context: ./forked-bitnami-docker
-          file: ./Dockerfile
+          file: ./forked-bitnami-docker/Dockerfile
           platforms: linux/amd64
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
