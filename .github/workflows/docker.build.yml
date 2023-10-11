@@ -37,12 +37,19 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Bitnami Elasticsearch Base
+        uses: docker/build-push-action@v3.1.1
+        with:
+          context: ./forked-bitnami-docker
+          file: ./Dockerfile
+          platforms: linux/amd64
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
+          tags: bitnami-elasticsearch-fork:local
       - name: Build and push
         uses: docker/build-push-action@v3.1.1
         with:
           context: .
-          build-contexts: |
-            bitnami-elasticsearch-fork:local=./forked-bitnami-docker
           file: ./Dockerfile
           platforms: linux/amd64
           cache-from: type=local,src=/tmp/.buildx-cache
