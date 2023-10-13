@@ -1,7 +1,7 @@
 ARG ELASTICSEARCH_VERSION=7.10.2
 ARG ELASTICSEARCH_PLUGIN_EXTRA_VERSION=7.10.2-wmf4
 
-FROM bitnami/elasticsearch:${ELASTICSEARCH_VERSION}
+FROM bitnami-elasticsearch-fork:local
 
 WORKDIR /opt/bitnami/elasticsearch
 
