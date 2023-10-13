@@ -37,7 +37,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build Bitnami Elasticsearch Base
+      - name: Build base image
         uses: docker/build-push-action@v3.1.1
         with:
           context: ./forked-bitnami-docker
@@ -45,13 +45,20 @@ jobs:
           platforms: linux/amd64
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
-          tags: bitnami-elasticsearch-fork:local
-          load: true
+          tags: bitnami-elasticsearch-fork
+          outputs: |
+            type=oci,dest=/tmp/oci-base-image.tar
+      - name: Extract base image
+        run: |
+          mkdir -p /tmp/oci-base-image
+          tar -xvf /tmp/oci-base-image.tar -C /tmp/oci-base-image
       - name: Build and push
         uses: docker/build-push-action@v3.1.1
         with:
           context: .
           file: ./Dockerfile
+          build-contexts: |
+            bitnami-elasticsearch-fork:local=oci-layout:///tmp/oci-base-image:bitnami-elasticsearch-fork
           platforms: linux/amd64
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
