@@ -2,6 +2,10 @@
 
 Tags have the format: `<Elasticsearch version>-<date>-<build number>`
 
+## 7.10.2-20231116-0
+
+- Add a cluster healthcheck script
+
 ## 7.10.2-20231013-0
 
 - Use a forked bitnami docker image
